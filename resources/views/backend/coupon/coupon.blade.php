@@ -24,7 +24,7 @@
                         <th class="table-size-3">Action</th>
                     </tr>
                 </thead>
-                <tbody>
+                <tbody class="t-body">
                     @foreach($coupons as $coupon)
                     <tr>
                         <td>{{$coupon->coupon_code}}</td>
@@ -54,15 +54,16 @@
                         <td class="action-links">
                             <div class="a-btn">
                                 <a href="{{route('edit.coupon', $coupon->id)}}" class="btn btn-edit"><i class="fas fa-pencil-alt"></i></a>
-                                <a href="{{route('delete.product', $coupon->id)}}" class="btn btn-delete"><i class="fas fa-trash-alt"></i></a>
+                                <a href="{{route('delete.coupon', $coupon->id)}}" class="btn btn-delete"><i class="fas fa-trash-alt"></i></a>
                                 @if($coupon->status === 1)
-                                <a href="{{route('deactivate.product', $coupon->id)}}" class="btn btn-delete"><i class="fas fa-arrow-down" title="Deactivate Product"></i></a>
+                                <a href="{{route('deactivate.coupon', $coupon->id)}}" class="btn btn-delete"><i class="fas fa-arrow-down" title="Deactivate Product"></i></a>
                                 @else
-                                <a href="{{route('activate.product', $coupon->id)}}" class="btn btn-edit"><i class="fas fa-arrow-up" title="Activate Product"></i></a>
+                                <a href="{{route('activate.coupon', $coupon->id)}}" class="btn btn-edit"><i class="fas fa-arrow-up" title="Activate Product"></i></a>
                                 @endif
                             </div>
                         </td>
                     </tr>
+
                     @endforeach
                 </tbody>
             </table>
@@ -123,5 +124,7 @@
         </form>
     </div>
 </div>
+
+<script src="{{asset('backend/fetchAPI/status.js')}}"></script>
 
 @endsection

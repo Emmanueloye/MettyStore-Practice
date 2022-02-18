@@ -7,7 +7,7 @@
         <div class="row product-area-header">
             <h2 class="heading">Update Coupon</h2>
         </div>
-        <form action="{{route('add.coupon')}}" method="post" class="add-product-form">
+        <form action="{{route('update.coupon', $coupon->id)}}" method="post" class="add-product-form">
             @csrf
             @csrf
             @if ($errors->any())
@@ -32,11 +32,8 @@
                         <h4>Coupon Type<span>*</span></h4>
                         <select name="coupon_type">
                             <option value="default" selected disabled>Select coupon type</option>
-                            @if($coupon->coupon_type == 'Fixed')
-                            <option value="Fixed" selected>Fixed</option>
-                            @else
-                            <option value="Percentage" selected>Percentage</option>
-                            @endif
+                            <option value="Fixed" {{$coupon->coupon_type == 'Fixed'? 'selected': ''}}>Fixed</option>
+                            <option value="Percentage" {{$coupon->coupon_type == 'Percentage'? 'selected': ''}}>Percentage</option>
                         </select>
                     </div>
                 </div>
