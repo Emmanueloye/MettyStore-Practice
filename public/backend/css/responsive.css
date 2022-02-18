@@ -1,0 +1,305 @@
+/* ================================================== */
+/* |============= Color Setup ======================| */
+/* ================================================== */
+:root {
+    --light-color: #dddddd;
+    --blue-color: #0a043c;
+    --purple-color: #892cdc;
+    --white: #fff;
+    --dark-gray: #393e46;
+    --light-blue: #396eb0;
+    --very-light-blue: rgba(57, 110, 176, 0.7);
+    --pink-color: #f05454;
+    --nav-link-color: #35589a;
+}
+
+@media (min-width: 1400px) {
+    .td-img {
+        width: 85px;
+        height: 85px;
+    }
+}
+
+@media (max-width: 1300px) {
+    .td-img {
+        width: 85px;
+        height: 85px;
+    }
+}
+
+@media (max-width: 1200px) {
+    .side-bar {
+        width: 60px;
+    }
+    .change.side-bar {
+        width: 270px;
+    }
+    .main-content {
+        width: calc(100% - 60px);
+        margin-left: 60px;
+    }
+    .change.main-content {
+        width: calc(100% - 270px);
+        margin-left: 270px;
+    }
+    .top-nav {
+        height: 85px;
+    }
+    .change .top-nav {
+        height: 75px;
+    }
+    .nav-link,
+    .side-bar-card .profile-img {
+        visibility: hidden;
+    }
+    .admin-info h3,
+    .admin-info p {
+        opacity: 0;
+    }
+    .change .nav-link,
+    .change .side-bar-card .profile-img {
+        visibility: visible;
+    }
+    .change .admin-info h3,
+    .change .admin-info p {
+        opacity: 1;
+    }
+    .nav-icon {
+        visibility: visible;
+    }
+    .td-img {
+        width: 100px;
+        height: 110px;
+    }
+}
+
+@media (max-width: 768px) {
+    .main-content {
+        width: 100%;
+        margin-left: 0;
+    }
+    .change.main-content {
+        width: 100%;
+        margin-left: 0;
+    }
+    .side-bar {
+        left: -250px;
+    }
+    .change.side-bar {
+        left: 0;
+        width: 350px;
+    }
+    /* .change.side-bar {
+    width: 250px;
+  }
+  .change.main-content {
+    width: calc(100% - 250px);
+    margin-left: 250px;
+  } */
+    .change .search-box {
+        display: none;
+    }
+    .search-input {
+        width: 140px;
+    }
+    .auth-dropdown {
+        right: 0px;
+    }
+    .change .col-4 {
+        width: calc(50% - 10px);
+        margin: 0.5rem;
+        margin-left: 0;
+    }
+    .close-btn {
+        color: #fff;
+        color: var(--white);
+        background-color: #f05454;
+        background-color: var(--pink-color);
+        border: none;
+        border-radius: 50%;
+        font-size: 2.5rem;
+        outline: none;
+        padding: 0.3rem 0.5rem;
+        height: 35px;
+        width: 35px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-left: 8rem;
+    }
+    .e-col-3 {
+        width: calc(50% - 20px);
+        margin-left: 1rem;
+    }
+    .e-col-8 {
+        width: 100%;
+    }
+    .exception-col-4 {
+        width: 100%;
+    }
+    .admin-details .e-col-3 {
+        width: 31%;
+        margin-left: 0;
+    }
+}
+
+@media (max-width: 576px) {
+    .side-bar {
+        left: -250px;
+    }
+    .change.side-bar {
+        left: 0;
+        width: 300px;
+    }
+    .main-content {
+        width: 100%;
+        margin-left: 0px;
+    }
+    .change.main-content {
+        width: 100%;
+    }
+    .col-4 {
+        width: calc(50% - 20px);
+        margin-bottom: 1rem;
+        margin-left: 1rem;
+    }
+    .change .col-4 {
+        width: 100%;
+    }
+    .stats-card {
+        margin-left: 0;
+    }
+    .search-box {
+        display: none;
+    }
+    .side-bar-card {
+        height: 55px;
+    }
+    .side-bar-card .profile-img {
+        display: none;
+    }
+    .td-img {
+        height: 90px;
+    }
+    .e-col-6 {
+        width: 100%;
+        margin-left: 0;
+    }
+}
+
+@media (max-width: 420px) {
+    .main-content {
+        width: 100%;
+        margin-left: 0;
+    }
+    .change.main-content {
+        width: 100%;
+        margin-left: 0;
+    }
+    .change.side-bar {
+        left: 0;
+        width: 100%;
+    }
+    .side-bar-card {
+        justify-content: space-between;
+    }
+    .col-4 {
+        width: 100% !important;
+    }
+    .heading {
+        margin-bottom: 1rem;
+    }
+    .e-col-3 {
+        width: 100%;
+        margin-left: 0;
+    }
+    .e-col-full {
+        margin-left: 0;
+    }
+    .admin-details .e-col-3 {
+        width: 100%;
+    }
+    .info::before {
+        content: "";
+        display: block;
+        border-left: none;
+    }
+    .info h3 {
+        margin-bottom: 0.3rem;
+    }
+    .info p {
+        margin-bottom: 1rem;
+    }
+    .profile-area .btn-edit {
+        float: none;
+    }
+    .flex {
+        display: flex;
+        flex-direction: column;
+    }
+    .e-col-4 {
+        width: 100%;
+    }
+}
+
+@media (max-width: 376px) {
+    .heading {
+        order: 2;
+        font-size: 2.5rem;
+        margin-bottom: 0;
+    }
+    .add-product-btn {
+        order: 1;
+        margin-bottom: 1rem;
+        margin-top: 0;
+    }
+}
+
+@media (max-width: 282px) {
+    .admin-info {
+        width: 100%;
+    }
+}
+
+@media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
+    /* IE10+ CSS styles*/
+    .btn-search {
+        padding: 0.8rem 1rem;
+        top: -2px;
+    }
+    .side-bar {
+        overflow-x: hidden;
+        -ms-overflow-style: -ms-autohiding-scrollbar;
+    }
+}
+
+/* |=============Login and Register Media Query Styles============| */
+@media (max-width: 1089px) {
+    .login-form,
+    .register-form {
+        width: 45%;
+    }
+    .form-card {
+        width: 45%;
+    }
+}
+
+@media (max-width: 780px) {
+    .login-form,
+    .register-form {
+        width: 55%;
+    }
+    .form-card {
+        width: 55%;
+    }
+}
+
+@media (max-width: 420px) {
+    .login-form,
+    .register-form {
+        width: 80%;
+    }
+    .form-card {
+        width: 80%;
+    }
+}
