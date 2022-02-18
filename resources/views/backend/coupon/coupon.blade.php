@@ -56,7 +56,7 @@
                                 <a href="{{route('edit.coupon', $coupon->id)}}" class="btn btn-edit"><i class="fas fa-pencil-alt"></i></a>
                                 <a href="{{route('delete.coupon', $coupon->id)}}" class="btn btn-delete"><i class="fas fa-trash-alt"></i></a>
                                 @if($coupon->status === 1)
-                                <a href="{{route('deactivate.coupon', $coupon->id)}}" class="btn btn-delete"><i class="fas fa-arrow-down" title="Deactivate Product"></i></a>
+                                <a href="{{route('deactivate.coupon', $coupon->id)}}" class="btn deactivate btn-delete"><i class="fas fa-arrow-down" title="Deactivate Product"></i></a>
                                 @else
                                 <a href="{{route('activate.coupon', $coupon->id)}}" class="btn btn-edit"><i class="fas fa-arrow-up" title="Activate Product"></i></a>
                                 @endif

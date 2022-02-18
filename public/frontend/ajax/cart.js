@@ -103,12 +103,7 @@ cartHolder.addEventListener("click", function (e) {
     if (e.target.classList.contains("cart-remove")) {
         let id = e.target.parentNode.parentNode.querySelector(".id").value;
 
-        fetch("/delete-cart-item/" + id, {
-            method: "GET",
-            headers: {
-                "Content-Type": "application/json",
-            },
-        })
+        fetch("/delete-cart-item/" + id)
             .then((resp) => resp.json())
             .then((data) => {
                 cartItems();
@@ -125,12 +120,7 @@ cartHolder.addEventListener("click", function (e) {
             e.target.parentNode.parentNode.parentNode.querySelector(
                 ".id"
             ).value;
-        fetch("/cart-increment/" + id, {
-            method: "GET",
-            headers: {
-                "Content-Type": "application/json",
-            },
-        })
+        fetch("/cart-increment/" + id)
             .then((resp) => resp.json())
             .then((data) => {
                 cartItems();
@@ -146,12 +136,7 @@ cartHolder.addEventListener("click", function (e) {
             e.target.parentNode.parentNode.parentNode.querySelector(
                 ".id"
             ).value;
-        fetch("/cart-decrement/" + id, {
-            method: "GET",
-            headers: {
-                "Content-Type": "application/json",
-            },
-        })
+        fetch("/cart-decrement/" + id)
             .then((resp) => resp.json())
             .then((data) => {
                 cartItems();
