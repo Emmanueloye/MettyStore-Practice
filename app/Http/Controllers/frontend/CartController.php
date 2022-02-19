@@ -103,8 +103,22 @@ class CartController extends Controller
     public function cartItems()
     {
         $carts = ModelsCart::with('product')->where('user_id', Auth::id())->latest()->get();
+        $totalAmount = 0;
+        foreach ($carts as $cart) {
+            $sellingPrice = null;
+            if ($cart->product->discount_price == null) {
+                $sellingPrice = $cart->product->selling_price;
+            } else {
+                $sellingPrice = $cart->product->discount_price;
+            }
 
-        return response()->json($carts);
+            $totalAmount = $totalAmount + ($cart->product_qty * $sellingPrice);
+        }
+
+        return response()->json(array(
+            'cartItems' => $carts,
+            'totalAmount' => $totalAmount,
+        ));
     }
 
     public function deleteCart($id)

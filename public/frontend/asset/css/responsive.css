@@ -102,21 +102,21 @@
     right: 0px;
     top: 43px;
   }
-} */
+  } */
 
 /* @media (max-width: 420px) {
   .auth-dropdown {
     right: 0px;
     top: 43px;
   }
-} */
+  } */
 
 /* @media (max-width: 376px) {
   .auth-dropdown {
     right: -20px;
     top: 43px;
   }
-} */
+  } */
 
 @media (max-width: 420px) {
     .brand-logo {
@@ -616,7 +616,30 @@
         box-shadow: 1px 2px 0px var(--dark-gray);
     }
     .cart-total {
+        flex-direction: column;
+        gap: 0;
         padding-right: 2rem;
+    }
+    .coupon-sec label {
+        display: none;
+    }
+    .coupon-sec {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 100%;
+    }
+    .form-coupon {
+        width: 100%;
+        border-radius: 0;
+    }
+    .btn-apply {
+        margin-right: 0;
+        border-radius: 0;
+        padding-top: 1.2rem;
+    }
+    .cart-total-cal {
+        width: 100%;
     }
 }
 

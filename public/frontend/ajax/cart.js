@@ -16,7 +16,7 @@ async function cartItems() {
     let totalPrice = 0;
     let cartCount = 0;
     cartItems.innerHTML = "";
-    carts.forEach((cart) => {
+    carts.cartItems.forEach((cart) => {
         // calculate number of products in cart
         cartCount += Number(cart.product_qty);
 
@@ -85,15 +85,9 @@ async function cartItems() {
       </div>`;
         cartItems.insertAdjacentHTML("beforeend", cartHTML);
 
-        // calculate grand total price
-        totalPrice += sellingPrice * cart.product_qty;
-
-        // insert calculations in HTML
-
-        grandTotal.innerHTML = nf.format(totalPrice);
-
         document.querySelector(".cart-count").innerHTML = cartCount;
     });
+    grandTotal.innerHTML = nf.format(carts.totalAmount);
 }
 
 cartItems();
