@@ -38,6 +38,7 @@ class AdminProfileController extends Controller
         $adminData->email = $request->email;
 
         $profileImage = $request->file('profile_image');
+
         if ($profileImage) {
             $imageName = $profileImage->getClientOriginalName();
             unlink(public_path('upload/profile/admin-image/' . $adminData->profile_image));

@@ -1,5 +1,6 @@
 let applyCoupon = document.querySelector(".btn-apply");
 let couponCode = document.querySelector(".form-coupon");
+let cartTotalHolder = document.querySelector(".cart-total-cal");
 
 function getCoupon() {
     fetch("/get-coupon")
@@ -37,7 +38,26 @@ function getCoupon() {
 }
 
 getCoupon();
-// document.addEventListener("DOMContentLoaded", function () {});
+
+cartTotalHolder.addEventListener("click", function (e) {
+    if (e.target.classList.contains("btn-coupon")) {
+        fetch("/remove-coupon")
+            .then((resp) => resp.json())
+            .then((data) => {
+                document.querySelector(".coupon-sec").style.display = "block";
+                couponCode.value = "";
+                getCoupon();
+
+                if (data.success) {
+                    showAlert(data.success);
+                } else {
+                    let alertIcon = document.querySelector(".alert-icon i");
+                    alertIcon.classList.add("fa-exclamation-triangle");
+                    showAlert(data.error);
+                }
+            });
+    }
+});
 
 applyCoupon.addEventListener("click", function () {
     fetch("/apply-coupon", {
@@ -55,6 +75,7 @@ applyCoupon.addEventListener("click", function () {
         .then((resp) => resp.json())
         .then((data) => {
             getCoupon();
+            document.querySelector(".coupon-sec").style.display = "none";
             if (data.success) {
                 showAlert(data.success);
             } else {

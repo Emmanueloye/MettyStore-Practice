@@ -562,6 +562,7 @@ html {
     -webkit-transition: all 0.5s;
     -moz-transition: all 0.5s;
     -ms-transition: all 0.5s;
+    cursor: pointer;
 }
 .btn:hover {
     background-color: var(--light-blue);

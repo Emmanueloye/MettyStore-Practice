@@ -42,7 +42,7 @@ class CouponController extends Controller
     public function couponUpdate(Request $request, $id)
     {
         $request->validate([
-            'coupon_code' => 'required|unique:coupons',
+            'coupon_code' => 'required',
             'coupon_type' => 'required',
             'coupon_discount' => 'required',
             'expiration_date' => 'required'

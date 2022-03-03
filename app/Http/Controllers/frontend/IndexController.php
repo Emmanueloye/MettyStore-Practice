@@ -54,6 +54,7 @@ class IndexController extends Controller
         $user->email = $request->email;
 
         $profileImage = $request->file('profile_image');
+        dd($profileImage);
 
         if ($profileImage) {
             $imageName = time() . $profileImage->getClientOriginalName();

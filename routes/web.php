@@ -197,6 +197,8 @@ Route::get('/cart-increment/{id}', [CartController::class, 'cartQtyIncrement']);
 Route::get('/cart-decrement/{id}', [CartController::class, 'cartQtyDecrement']);
 
 // Apply coupon routes
-Route::post('/apply-coupon', [MainController::class, 'applyCoupon']);
+Route::post('/apply-coupon', [CartController::class, 'applyCoupon']);
 
-Route::get('/get-coupon', [MainController::class, 'getCoupon']);
+Route::get('/get-coupon', [CartController::class, 'getCoupon']);
+
+Route::get('/remove-coupon', [CartController::class, 'removeCoupon']);

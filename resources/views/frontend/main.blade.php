@@ -37,7 +37,7 @@
     <script src="{{asset('frontend/asset/js/custom.js')}}"></script>
     <script src="{{asset('frontend/ajax/addToCart.js')}}"></script>
     <script src="{{asset('frontend/ajax/cart.js')}}"></script>
-
+    <script src="{{asset('frontend/ajax/coupon.js')}}"></script>
     <script src="{{asset('frontend/asset/js/product.js')}}"></script>
     <script src="{{asset('frontend/asset/js/script.js')}}"></script>
 </body>

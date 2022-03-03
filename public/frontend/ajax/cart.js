@@ -11,9 +11,7 @@ async function getCartsItems() {
 async function cartItems() {
     let carts = await getCartsItems();
     let cartItems = document.querySelector(".cart-items");
-    let grandTotal = document.querySelector("#cart-total");
     let nf = new Intl.NumberFormat();
-    let totalPrice = 0;
     let cartCount = 0;
     cartItems.innerHTML = "";
     carts.cartItems.forEach((cart) => {
@@ -87,12 +85,11 @@ async function cartItems() {
 
         document.querySelector(".cart-count").innerHTML = cartCount;
     });
-    grandTotal.innerHTML = nf.format(carts.totalAmount);
 }
 
 cartItems();
 
-// delete cart items without reloading the page
+// delete cart items
 cartHolder.addEventListener("click", function (e) {
     if (e.target.classList.contains("cart-remove")) {
         let id = e.target.parentNode.parentNode.querySelector(".id").value;
@@ -100,6 +97,7 @@ cartHolder.addEventListener("click", function (e) {
         fetch("/delete-cart-item/" + id)
             .then((resp) => resp.json())
             .then((data) => {
+                getCoupon();
                 cartItems();
                 getCartCount();
                 window.history.go();
@@ -116,7 +114,8 @@ cartHolder.addEventListener("click", function (e) {
             ).value;
         fetch("/cart-increment/" + id)
             .then((resp) => resp.json())
-            .then((data) => {
+            .then(() => {
+                getCoupon();
                 cartItems();
                 getCartCount();
             });
@@ -132,7 +131,8 @@ cartHolder.addEventListener("click", function (e) {
             ).value;
         fetch("/cart-decrement/" + id)
             .then((resp) => resp.json())
-            .then((data) => {
+            .then(() => {
+                getCoupon();
                 cartItems();
                 getCartCount();
             });

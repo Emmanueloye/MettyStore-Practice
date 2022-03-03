@@ -41,6 +41,6 @@ MettyHair - Shoppingcart
     </div>
 </div>
 <!------------End Product Cart----------->
-<script src="{{asset('frontend/ajax/coupon.js')}}"></script>
+
 
 @endsection

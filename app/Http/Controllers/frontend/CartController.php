@@ -4,6 +4,8 @@ namespace App\Http\Controllers\frontend;
 
 use App\Http\Controllers\Controller;
 use App\Models\Cart as ModelsCart;
+use App\Models\Coupon;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
@@ -138,6 +140,40 @@ class CartController extends Controller
         $cartItem = ModelsCart::findOrFail($id);
         $cartItem->product_qty = $cartItem->product_qty + 1;
         $cartItem->save();
+
+        if (Session::has('coupon')) {
+
+            $coupon_code = Session::get('coupon')['coupon_code'];
+            $coupon = Coupon::where('coupon_code', $coupon_code)->first();
+            $carts = ModelsCart::with('product')->where('user_id', Auth::id())->get();
+
+            $totalAmount = 0;
+            foreach ($carts as $cart) {
+                $sellingPrice = null;
+                if ($cart->product->discount_price == null) {
+                    $sellingPrice = $cart->product->selling_price;
+                } else {
+                    $sellingPrice = $cart->product->discount_price;
+                }
+
+                $totalAmount  += ($cart->product_qty * $sellingPrice);
+            }
+
+            $discountAmount = null;
+            if ($coupon->coupon_type == 'Fixed') {
+                $discountAmount = $coupon->coupon_discount;
+            } else {
+                $discountAmount = $totalAmount * ($coupon->coupon_discount / 100);
+            }
+
+            Session::put('coupon', [
+                'coupon_code' => $coupon->coupon_code,
+                'coupon_discount' => $discountAmount,
+                'total' => $totalAmount,
+                'grandTotal' => $totalAmount - $discountAmount,
+            ]);
+        }
+
         return response()->json('updated');
     }
 
@@ -146,6 +182,138 @@ class CartController extends Controller
         $cartItem = ModelsCart::findOrFail($id);
         $cartItem->product_qty = $cartItem->product_qty - 1;
         $cartItem->save();
+
+        if (Session::has('coupon')) {
+
+            $coupon_code = Session::get('coupon')['coupon_code'];
+            $coupon = Coupon::where('coupon_code', $coupon_code)->first();
+            $carts = ModelsCart::with('product')->where('user_id', Auth::id())->get();
+
+            $totalAmount = 0;
+            foreach ($carts as $cart) {
+                $sellingPrice = null;
+                if ($cart->product->discount_price == null) {
+                    $sellingPrice = $cart->product->selling_price;
+                } else {
+                    $sellingPrice = $cart->product->discount_price;
+                }
+
+                $totalAmount  += ($cart->product_qty * $sellingPrice);
+            }
+
+            $discountAmount = null;
+            if ($coupon->coupon_type == 'Fixed') {
+                $discountAmount = $coupon->coupon_discount;
+            } else {
+                $discountAmount = $totalAmount * ($coupon->coupon_discount / 100);
+            }
+
+            Session::put('coupon', [
+                'coupon_code' => $coupon->coupon_code,
+                'coupon_discount' => $discountAmount,
+                'total' => $totalAmount,
+                'grandTotal' => $totalAmount - $discountAmount,
+            ]);
+        }
+
         return response()->json('updated');
+    }
+
+    public function applyCoupon(Request $request)
+    {
+        if (Auth::check()) {
+
+            $coupon = Coupon::where('coupon_code', $request->coupon_code)->first();
+            $carts = ModelsCart::with('product')->where('user_id', Auth::id())->get();
+
+            $totalAmount = 0;
+            foreach ($carts as $cart) {
+                $sellingPrice = null;
+                if ($cart->product->discount_price == null) {
+                    $sellingPrice = $cart->product->selling_price;
+                } else {
+                    $sellingPrice = $cart->product->discount_price;
+                }
+
+                $totalAmount  += ($cart->product_qty * $sellingPrice);
+            }
+
+
+            if ($coupon && $coupon->expiration_date >= Carbon::now()->format('Y-m-d') && $coupon->status == 1) {
+
+                $discountAmount = null;
+                if ($coupon->coupon_type == 'Fixed') {
+                    $discountAmount = $coupon->coupon_discount;
+                } else {
+                    $discountAmount = $totalAmount * ($coupon->coupon_discount / 100);
+                }
+
+                Session::put('coupon', [
+                    'coupon_code' => $coupon->coupon_code,
+                    'coupon_discount' => $discountAmount,
+                    'total' => $totalAmount,
+                    'grandTotal' => $totalAmount - $discountAmount,
+                ]);
+                return response()->json(['success' => 'Coupon applied successfully']);
+            } else {
+                return response()->json(['error' => 'Your coupon code is invalid']);
+            }
+        } else {
+            return response()->json(['error' => 'Please login to apply coupon']);
+        }
+    }
+
+    public function getCoupon()
+    {
+        if (Session::has('coupon')) {
+
+            $carts = ModelsCart::with('product')->where('user_id', Auth::id())->get();
+
+            $totalAmount = 0;
+            foreach ($carts as $cart) {
+                $sellingPrice = null;
+                if ($cart->product->discount_price == null) {
+                    $sellingPrice = $cart->product->selling_price;
+                } else {
+                    $sellingPrice = $cart->product->discount_price;
+                }
+
+                $totalAmount = $totalAmount + ($cart->product_qty * $sellingPrice);
+            }
+
+            return response()->json(array(
+                'coupon_code' => Session::get('coupon')['coupon_code'],
+                'coupon_discount' => Session::get('coupon')['coupon_discount'],
+                'total' => $totalAmount,
+                'grandTotal' => Session::get('coupon')['grandTotal']
+            ));
+        } else {
+
+            $carts = ModelsCart::with('product')->where('user_id', Auth::id())->get();
+
+            $totalAmount = 0;
+            foreach ($carts as $cart) {
+                $sellingPrice = null;
+                if ($cart->product->discount_price == null) {
+                    $sellingPrice = $cart->product->selling_price;
+                } else {
+                    $sellingPrice = $cart->product->discount_price;
+                }
+
+                $totalAmount = $totalAmount + ($cart->product_qty * $sellingPrice);
+            }
+            return response()->json([
+                'noCouponTotal' => $totalAmount,
+            ]);
+        }
+    }
+
+    public function removeCoupon()
+    {
+        if (Session::has('coupon')) {
+            Session::forget('coupon');
+
+            return response()->json(['success' => 'Coupon removed successfully']);
+        }
     }
 }
